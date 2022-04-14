@@ -5,7 +5,7 @@ $green: #27d7a1;
 
 $light-green: #45f69e;
 $light: #f8f8f8;
-$dark-green: rgb(0, 100, 80);
+$dark-green: rgb(0, 176, 141);
 
 // Bulma Global Variables
 $family-sans-serif: "Nunito", sans-serif;
@@ -20,9 +20,9 @@ $input-shadow: none;
 
 // Styles to apply to whole app
 html {
-    background: linear-gradient(to right top, $turqoise, $green);
+    background: linear-gradient(to right top, $turquoise, $green);
 }
 
 html, body {
     height: 100%;
-}
+} 
