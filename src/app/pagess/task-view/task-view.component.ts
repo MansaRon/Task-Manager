@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TasksServicesService } from 'src/app/tasks-services.service';
 
 @Component({
   selector: 'app-task-view',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TaskViewComponent implements OnInit {
 
-  constructor() { }
+  title: string = 'List From The Front End Project';
 
-  ngOnInit(): void {
+  constructor(private taskService: TasksServicesService) { }
+
+  ngOnInit(): void {}
+
+  public newList() {
+    console.log(this.title);
+    this.taskService.saveList(this.title).subscribe({
+      next: (res) => {
+        console.log(res);
+      }, 
+      error: (err) => {
+        console.log(err);
+      }, complete:() => { console.log('Data being loaded...') }
+    })
   }
 
 }
