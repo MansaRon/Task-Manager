@@ -5,11 +5,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TaskViewComponent } from './pagess/task-view/task-view.component';
+import { NewListComponent } from './pagess/new-list/new-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskViewComponent
+    TaskViewComponent,
+    NewListComponent
   ],
   imports: [
     BrowserModule,

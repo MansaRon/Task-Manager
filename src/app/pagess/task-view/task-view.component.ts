@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TasksServicesService } from 'src/app/tasks-services.service';
 
@@ -10,13 +11,26 @@ export class TaskViewComponent implements OnInit {
 
   title: string = 'List From The Front End Project';
 
-  constructor(private taskService: TasksServicesService) { }
+  constructor(private taskService: TasksServicesService, private httpClient: HttpClient) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { this.getLists() }
+
+  public getLists() {
+    this.taskService.getList().subscribe({
+      next: (res) => {
+        console.log(res);
+      }, 
+      error: (err) => {
+        console.log(err);
+      }, complete:() => { console.log('Data being loaded...') }
+    })
+  }
 
   public newList() {
-    console.log(this.title);
-    this.taskService.saveList(this.title).subscribe({
+    let list = {
+      "title": 'New list from the frontend.'
+    }
+    this.taskService.saveList(list).subscribe({
       next: (res) => {
         console.log(res);
       }, 
