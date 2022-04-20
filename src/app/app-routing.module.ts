@@ -4,9 +4,10 @@ import { NewListComponent } from './pagess/new-list/new-list.component';
 import { TaskViewComponent } from './pagess/task-view/task-view.component';
 
 const routes: Routes = [
-  { path: '', component: TaskViewComponent },
+  { path: '', redirectTo: '/lists', pathMatch: 'full' },
   { path: 'new-list', component: NewListComponent },
-  
+  { path: 'lists', component: TaskViewComponent },
+  { path: 'lists/:listId', component: TaskViewComponent }
 ];
 
 @NgModule({

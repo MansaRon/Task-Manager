@@ -53,7 +53,7 @@ export class NewListComponent implements OnInit {
       let list = {
         "title": titleInput
       }
-      this.taskService.saveList(list).subscribe({
+      this.taskService.saveTask(list).subscribe({
         next: (res) => {
           console.log(res);
           this.msg = 'List Added.';

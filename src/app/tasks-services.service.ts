@@ -11,40 +11,47 @@ export class TasksServicesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  saveList(listObj: Object): Observable<any> {
-    return this.httpClient.post(this.url + "lists", listObj, {
+  saveList() {
+
+  }
+
+  getList() {
+
+  }
+
+  editList() {
+
+  }
+
+  deleteList() {
+
+  }
+
+  public saveTask(taskObj: Object): Observable<any> {
+    return this.httpClient.post(this.url + "lists", taskObj, {
       headers: new HttpHeaders().set("Access-Control-Allow-Headers", "Origin, Content-Type, X-Auth-Token, content-type")
       .set("Access-Control-Allow-Origin", "*").set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH")
       .set("Accept", 'application/json').set('Content-Type', 'application/json')});
   }
 
-  getList(): Observable<any> {
+  public getTasks(): Observable<any> {
     return this.httpClient.get(this.url + "all-lists", {
       headers: new HttpHeaders().set("Access-Control-Allow-Headers", "Origin, Content-Type, X-Auth-Token, content-type")
       .set("Access-Control-Allow-Origin", "*").set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH")
       .set("Accept", 'application/json').set('Content-Type', 'application/json')})
   }
 
-  editList(listObj: Object, listObjId: string): Observable<any> {
-    return this.httpClient.put(this.url + "lists/" + listObj + "/", listObjId, {
+  public editTask(taskObj: Object, taskObjId: string): Observable<any> {
+    return this.httpClient.put(this.url + "lists/" + taskObj + "/", taskObjId, {
       headers: new HttpHeaders().set("Access-Control-Allow-Headers", "Origin, Content-Type, X-Auth-Token, content-type")
       .set("Access-Control-Allow-Origin", "*").set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH")
       .set("Accept", 'application/json').set('Content-Type', 'application/json')});
   }
 
-  deleteList(listObjId: string): Observable<any> {
-    return this.httpClient.delete(this.url + "lists/" + listObjId, {
-      headers: new HttpHeaders().set("Access-Control-Allow-Headers", "Origin, Content-Type, X-Auth-Token, content-type")
-      .set("Access-Control-Allow-Origin", "*").set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH")
-      .set("Accept", 'application/json').set('Content-Type', 'application/json')});
+  public deleteTask(taskObjId: string): Observable<any> { return this.httpClient.delete(this.url + "lists/" + taskObjId, {
+    headers: new HttpHeaders().set("Access-Control-Allow-Headers", "Origin, Content-Type, X-Auth-Token, content-type")
+    .set("Access-Control-Allow-Origin", "*").set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH")
+    .set("Accept", 'application/json').set('Content-Type', 'application/json')});
   }
-
-  public saveTask() {}
-
-  public getTasks() {}
-
-  public editTask() {}
-
-  public deleteTask() {}
 
 }
