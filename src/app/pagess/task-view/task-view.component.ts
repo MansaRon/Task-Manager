@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TasksServicesService } from 'src/app/tasks-services.service';
 
 @Component({
@@ -9,9 +9,9 @@ import { TasksServicesService } from 'src/app/tasks-services.service';
 })
 export class TaskViewComponent implements OnInit {
 
-  title: string = 'List From The Front End Project';
+  tasks: any = [];
 
-  constructor(private taskService: TasksServicesService, private httpClient: HttpClient) { }
+  constructor(private taskService: TasksServicesService, private router: Router) { }
 
   ngOnInit(): void { this.getLists() }
 
@@ -19,6 +19,7 @@ export class TaskViewComponent implements OnInit {
     this.taskService.getList().subscribe({
       next: (res) => {
         console.log(res);
+        this.tasks = res;
       }, 
       error: (err) => {
         console.log(err);
@@ -26,18 +27,6 @@ export class TaskViewComponent implements OnInit {
     })
   }
 
-  public newList() {
-    let list = {
-      "title": 'New list from the frontend.'
-    }
-    this.taskService.saveList(list).subscribe({
-      next: (res) => {
-        console.log(res);
-      }, 
-      error: (err) => {
-        console.log(err);
-      }, complete:() => { console.log('Data being loaded...') }
-    })
-  }
+  public goToNewList() { this.router.navigateByUrl('/new-list'); }
 
 }

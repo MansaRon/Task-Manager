@@ -21,7 +21,7 @@
                 </a>
             </div>
 
-            <button class="button is-primary has-text-white" (click)="newList()">New List</button>
+            <button class="button is-primary has-text-white" (click)="goToNewList()">New List</button>
         </div>
 
         <div class="tasks-list-container has-background-light">
@@ -29,13 +29,12 @@
                 Tasks
             </h1>
 
-            <!-- Task Elements -->
-            <div class="task">
-                <p>This is something I have to do</p>
+            <div class="task" *ngFor="let task of tasks">
+                <p>{{ task.title }}</p>
             </div>
-            <div class="task complete">
+            <!-- <div class="task complete">
                 <p>This is something I have to do</p>
-            </div>
+            </div> -->
         </div>
 
     </div>

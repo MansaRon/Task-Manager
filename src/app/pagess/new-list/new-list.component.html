@@ -1,1 +1,23 @@
-<p>new-list works!</p>
+<div class="centered-content">
+    <div class="modal-box has-background-light">
+        <h1 class="title">Create A New List </h1>
+        <!-- Using binding -->
+        <!-- <input [(ngModel)]="listInput" class="input is-medium has-background-light" type="text" placeholder="Enter List Name"> -->
+
+        <!-- Using template reference -->
+        <input #listTitleInput class="input is-medium has-background-light" type="text" placeholder="Enter List Name">
+         
+        <p style="color: red;" *ngIf="!ifSuccessful">{{ msg }}</p>
+        <p style="color: green;" *ngIf="ifSuccessful">{{ msg }}</p>
+
+        <div class="buttons is-right" style="margin-top: 10px;">
+            <button class="button" (click)="goBack()">Cancel</button>
+            <!-- Using binding -->
+            <!-- <button class="button is-primary" (click)="newList()">Create</button> -->
+
+            <!-- Using template reference -->
+            <button class="button is-primary" (click)="newList( listTitleInput.value )">Create</button>
+        </div>
+
+    </div>
+</div>
