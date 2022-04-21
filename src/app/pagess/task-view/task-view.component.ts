@@ -14,28 +14,55 @@ export class TaskViewComponent implements OnInit {
 
   constructor(private taskService: TasksServicesService, private router: Router, private params: ActivatedRoute) { }
 
-  ngOnInit(): void { this.getTasks(), this.getListId() }
-
-  public getListId(): void {
-    this.params.params.subscribe((param: Params) => {
-      console.log(param);
-    })
-  }
+  ngOnInit(): void { this.getTasks(); this.getListId() }
 
   public getTasks() {
     this.taskService.getTasks().subscribe({
-      next: (res) => {
-        console.log(res);
-        this.tasks = res;
-      }, 
-      error: (err) => {
-        console.log(err);
-      }, complete:() => { console.log('Data being loaded...') }
+      next: (lists: any[]) => { console.log(lists); this.lists = lists }, 
+      error: (err) => { console.log(err); }, 
+      complete:() => { console.log('Data being loaded...') }
     })
   }
 
-  public goToNewList() { this.router.navigateByUrl('/new-list'); }
+  public getListId(): void { 
+    this.params.params.subscribe((param: Params) => { 
+      console.log(param);
+      //this.getTasksId(param['listId']);
+      this.taskService.getList(param['listId']).subscribe((tasks: any[]) => {
+        this.tasks = tasks;
+        console.log(this.tasks);
+      })
+    }); 
+  }
 
-  public getLists() {  }
+  // public getTasksId(listId: string) {
+  //   this.taskService.getTasksWithId(listId).subscribe({
+  //     next: (res) => { console.log(res); this.tasks = res; }, 
+  //     error: (err) => { console.log(err); }, 
+  //     complete:() => { console.log('Data being loaded...') }
+  //   })
+  // }
+
+  // public getLists(listId: string) { 
+  //   this.taskService.getList(listId).subscribe((listData: any) => {
+  //     console.log(listData);
+  //     if (listId == listData._listId) {
+  //       this.lists = listData;
+  //       console.log(this.lists)
+  //     }
+  //     ;
+  //   }) 
+  // }
+
+  // public checkTaskClicked(task: string) {
+  //   if (task) {
+  //     console.log(task);
+  //     this.getLists(task);
+  //   }
+  // }
+
+  public goToNewList() { this.router.navigateByUrl('/new-list') };
+
+  public goAddTask() { this.router.navigateByUrl('/new-task') };
 
 }

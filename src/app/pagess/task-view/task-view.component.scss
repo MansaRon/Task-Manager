@@ -53,6 +53,7 @@
     padding: 42px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
+    position: relative;
 }
 
 .title {
@@ -88,4 +89,15 @@
             color: $dark-green;
         }
     }
+}
+
+.circle-add-button {
+    height: 60px;
+    width: 60px;
+    // background: $priary;
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    border-radius: 50%;
+    // border: none;
 }

@@ -7,8 +7,9 @@
             </div>
 
             <div class="list-menu">
-                <a class="list-menu-item" *ngFor="let task of tasks" [routerLink]="['/lists', task._id]">
-                    <p>{{ task.title }}</p>
+                <!-- routerLinkActive selects a class which is active based on which route is selected -->
+                <a class="list-menu-item" *ngFor="let list of lists" [routerLink]="['/lists', list._id]" routerLinkActive="is-active">
+                    <p>{{ list.title }}</p>
                 </a>
                 <!-- <a class="list-menu-item">
                     <p>List #2</p>
@@ -21,7 +22,7 @@
                 </a> -->
             </div>
 
-            <button class="button is-primary has-text-white" (click)="goToNewList()">New List</button>
+            <button class="button is-primary has-text-white" (click)="goToNewList()">+ New List</button>
         </div>
 
         <div class="tasks-list-container has-background-light">
@@ -30,12 +31,14 @@
             </h1>
 
             <!-- Task Elements -->
-            <div class="task">
-                <p>This is something I have to do</p>
+            <div class="task" *ngFor="let task of tasks">
+                <p>{{ task.title ? task.title : "No Tasks Under This List"}}</p>
             </div>
-            <div class="task complete">
+            <!-- <div class="task complete">
                 <p>This is something I have to do</p>
-            </div>
+            </div> -->
+
+            <button class="circle-add-button button is-primary" (click)="goAddTask()">+Task</button>
         </div>
 
     </div>
