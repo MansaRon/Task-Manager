@@ -7,9 +7,8 @@
         <!-- Using template reference -->
         <input #listTitleInput class="input is-medium has-background-light" type="text" placeholder="Enter List Name">
          
-        <p style="color: red;" *ngIf="!ifSuccessful">{{ msg }}</p>
-        <p style="color: green;" *ngIf="ifSuccessful">{{ msg }}</p>
-
+        <p style="color: red;">{{ msg }}</p>
+        
         <div class="buttons is-right" style="margin-top: 10px;">
             <button class="button" (click)="goBack()">Cancel</button>
             <!-- Using binding -->

@@ -11,6 +11,7 @@ export class TaskViewComponent implements OnInit {
 
   tasks: any = [];
   lists: any = [];
+  listId: string = '';
 
   constructor(private taskService: TasksServicesService, private router: Router, private params: ActivatedRoute) { }
 
@@ -27,12 +28,17 @@ export class TaskViewComponent implements OnInit {
   public getListId(): void { 
     this.params.params.subscribe((param: Params) => { 
       console.log(param);
+      this.listId = param['listId'];
       //this.getTasksId(param['listId']);
-      this.taskService.getList(param['listId']).subscribe((tasks: any[]) => {
-        this.tasks = tasks;
-        console.log(this.tasks);
-      })
+      if (this.listId) {
+        this.taskService.getList(param['listId']).subscribe({ 
+          next: (tasks: any[]) => { this.tasks = tasks; console.log(this.tasks) }, 
+          error: (error) => {console.log(error) }, 
+          complete:() => {console.log('Lists are being loaded...') }
+        })
+      }
     }); 
+    // (tasks: any[]) => { this.tasks = tasks; console.log(this.tasks) }
   }
 
   // public getTasksId(listId: string) {
@@ -63,6 +69,6 @@ export class TaskViewComponent implements OnInit {
 
   public goToNewList() { this.router.navigateByUrl('/new-list') };
 
-  public goAddTask() { this.router.navigateByUrl('/new-task') };
+  public goAddTask() { this.router.navigate(['lists', this.listId, 'new-task']) };
 
 }

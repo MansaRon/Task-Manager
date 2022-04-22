@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Task } from 'src/app/models/task.model';
 import { TasksServicesService } from 'src/app/tasks-services.service';
 
 @Component({
@@ -9,32 +10,30 @@ import { TasksServicesService } from 'src/app/tasks-services.service';
 })
 export class NewTaskComponent implements OnInit {
 
-  listInput: string = '';
-  msg: string = '';
-  ifSuccessful: boolean = false;
+  listId: string = ''; listInput: string = ''; msg: string = '';
 
-  constructor(private taskService: TasksServicesService, private router: Router) { }
+  constructor(private taskService: TasksServicesService, private router: Router, private route: ActivatedRoute) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.params.subscribe((param: Params) => { 
+      this.listId = param['listId'];
+      console.log(this.listId);
+    }); 
+  }
+
+  public goBack() {
+    this.router.navigate(['lists', this.listId]);
+  }
 
   public newTask(titleInput: string) {
     if (titleInput == '' || titleInput == null || titleInput == undefined) {
       this.msg = 'Please enter in a list before saving.';
-      this.ifSuccessful = false;
     } else {
-      let list = {
-        "title": titleInput
-      }
-      this.taskService.saveTask(list).subscribe({
-        next: (res) => {
-          console.log(res);
-          this.msg = 'List Added.';
-          this.ifSuccessful = true;
-          this.router.navigateByUrl('/');
-        }, 
-        error: (err) => {
-          console.log(err);
-        }, complete:() => { console.log('Data being loaded...'); this.msg = ''; }
+      let list = { "title": titleInput }
+      this.taskService.saveList(this.listId, list).subscribe({
+        next: (res: Task) => { console.log(res); this.router.navigate(['lists', res._listId]) }, 
+        error: (err) => { console.log(err) }, 
+        complete:() => { console.log('Data being loaded...'); this.msg = ''; }
       })
     }
   }

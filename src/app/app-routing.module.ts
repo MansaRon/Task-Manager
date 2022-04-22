@@ -6,7 +6,7 @@ import { TaskViewComponent } from './pagess/task-view/task-view.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/lists', pathMatch: 'full' },
-  { path: 'new-task', component: NewTaskComponent },
+  { path: 'lists/:listId/new-task', component: NewTaskComponent },
   { path: 'new-list', component: NewListComponent },
   { path: 'lists', component: TaskViewComponent },
   { path: 'lists/:listId', component: TaskViewComponent }
