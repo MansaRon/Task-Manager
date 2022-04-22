@@ -26,7 +26,7 @@ export class NewListComponent implements OnInit {
     } else {
       let list = { "title": titleInput }
       this.taskService.saveTask(list).subscribe({
-        next: (res: List) => { console.log(res); this.router.navigate(['/lists', res._id]); }, 
+        next: (res: List) => { this.router.navigate(['/lists', res._id]); }, 
         error: (err) => { console.log(err) }, 
         complete:() => { console.log('Data being loaded...'); this.msg = ''; }
       })

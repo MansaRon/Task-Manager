@@ -17,7 +17,6 @@ export class NewTaskComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((param: Params) => { 
       this.listId = param['listId'];
-      console.log(this.listId);
     }); 
   }
 
@@ -31,7 +30,7 @@ export class NewTaskComponent implements OnInit {
     } else {
       let list = { "title": titleInput }
       this.taskService.saveList(this.listId, list).subscribe({
-        next: (res: Task) => { console.log(res); this.router.navigate(['lists', res._listId]) }, 
+        next: (res: Task) => { this.router.navigate(['lists', res._listId]) }, 
         error: (err) => { console.log(err) }, 
         complete:() => { console.log('Data being loaded...'); this.msg = ''; }
       })

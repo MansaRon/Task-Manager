@@ -21,7 +21,7 @@ export class TaskViewComponent implements OnInit {
 
   public getTasks() {
     this.taskService.getTasks().subscribe({
-      next: (lists: List[]) => { console.log(lists); this.lists = lists }, 
+      next: (lists: List[]) => { this.lists = lists }, 
       error: (err) => { console.log(err); }, 
       complete:() => { console.log('Data being loaded...') }
     })
@@ -29,12 +29,11 @@ export class TaskViewComponent implements OnInit {
 
   public getListId(): void { 
     this.params.params.subscribe((param: Params) => { 
-      console.log(param);
       this.listId = param['listId'];
       //this.getTasksId(param['listId']);
       if (this.listId) {
         this.taskService.getList(param['listId']).subscribe({ 
-          next: (tasks: Task[]) => { this.tasks = tasks; console.log(this.tasks) }, 
+          next: (tasks: Task[]) => { this.tasks = tasks; }, 
           error: (error) => {console.log(error) }, 
           complete:() => {console.log('Lists are being loaded...') }
         })
@@ -73,7 +72,7 @@ export class TaskViewComponent implements OnInit {
   public goAddTask() { this.router.navigate(['lists', this.listId, 'new-task']) };
 
   public onTaskClick(task: Task) { 
-    console.log(task);
+ 
     if (!task.completed) {
       let obj = { 
         "_id": task._id,
@@ -82,7 +81,7 @@ export class TaskViewComponent implements OnInit {
         "title": task.title
       };
       this.taskService.editList(this.listId, task._id, obj).subscribe({
-        next: (taskResult: Task[]) => { console.log(taskResult) },
+        next: (taskResult: Task[]) => { },
         error: (error) => { console.log(error) },
         complete:() => { console.log('Task has been edited...') }
       })
@@ -94,7 +93,7 @@ export class TaskViewComponent implements OnInit {
         "title": task.title
       };
       this.taskService.editList(this.listId, task._id, obj).subscribe({
-        next: (taskResult: Task[]) => { console.log(taskResult) },
+        next: (taskResult: Task[]) => { },
         error: (error) => { console.log(error) },
         complete:() => { console.log('Task has been edited...') }
       })
