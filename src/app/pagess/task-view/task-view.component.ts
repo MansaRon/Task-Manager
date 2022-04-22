@@ -74,17 +74,32 @@ export class TaskViewComponent implements OnInit {
 
   public onTaskClick(task: Task) { 
     console.log(task);
-    let obj = { 
-      "_id": task._id,
-      "_listId": task._listId,
-      "completed": task.completed = true,
-      "title": task.title
-    };
-    this.taskService.editList(this.listId, task._id, obj).subscribe({
-      next: (taskResult: Task[]) => { console.log(taskResult) },
-      error: (error) => { console.log(error) },
-      complete:() => { console.log('Task has been edited...') }
-    })
+    if (!task.completed) {
+      let obj = { 
+        "_id": task._id,
+        "_listId": task._listId,
+        "completed": task.completed = true,
+        "title": task.title
+      };
+      this.taskService.editList(this.listId, task._id, obj).subscribe({
+        next: (taskResult: Task[]) => { console.log(taskResult) },
+        error: (error) => { console.log(error) },
+        complete:() => { console.log('Task has been edited...') }
+      })
+    } else {
+      let obj = { 
+        "_id": task._id,
+        "_listId": task._listId,
+        "completed": task.completed = false,
+        "title": task.title
+      };
+      this.taskService.editList(this.listId, task._id, obj).subscribe({
+        next: (taskResult: Task[]) => { console.log(taskResult) },
+        error: (error) => { console.log(error) },
+        complete:() => { console.log('Task has been edited...') }
+      })
+    }
+
   }
 
 }
