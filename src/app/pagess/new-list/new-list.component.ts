@@ -28,7 +28,7 @@ export class NewListComponent implements OnInit {
       this.taskService.saveTask(list).subscribe({
         next: (res: List) => { this.router.navigate(['/lists', res._id]); }, 
         error: (err) => { console.log(err) }, 
-        complete:() => { console.log('Data being loaded...'); this.msg = ''; }
+        complete:() => {}
       })
     }
   }

@@ -23,7 +23,7 @@ export class TaskViewComponent implements OnInit {
     this.taskService.getTasks().subscribe({
       next: (lists: List[]) => { this.lists = lists }, 
       error: (err) => { console.log(err); }, 
-      complete:() => { console.log('Data being loaded...') }
+      complete:() => {}
     })
   }
 
@@ -35,7 +35,7 @@ export class TaskViewComponent implements OnInit {
         this.taskService.getList(param['listId']).subscribe({ 
           next: (tasks: Task[]) => { this.tasks = tasks; }, 
           error: (error) => {console.log(error) }, 
-          complete:() => {console.log('Lists are being loaded...') }
+          complete:() => {}
         })
       }
     }); 
@@ -83,7 +83,7 @@ export class TaskViewComponent implements OnInit {
       this.taskService.editList(this.listId, task._id, obj).subscribe({
         next: (taskResult: Task[]) => { },
         error: (error) => { console.log(error) },
-        complete:() => { console.log('Task has been edited...') }
+        complete:() => {}
       })
     } else {
       let obj = { 
@@ -95,7 +95,7 @@ export class TaskViewComponent implements OnInit {
       this.taskService.editList(this.listId, task._id, obj).subscribe({
         next: (taskResult: Task[]) => { },
         error: (error) => { console.log(error) },
-        complete:() => { console.log('Task has been edited...') }
+        complete:() => {}
       })
     }
 
