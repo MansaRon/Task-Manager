@@ -31,7 +31,7 @@
             </h1>
 
             <!-- Task Elements -->
-            <div class="task" *ngFor="let task of tasks">
+            <div class="task" *ngFor="let task of tasks" (click)="onTaskClick(task)" [ngClass]="{ 'complete': task.completed }">
                 <p>{{ task.title ? task.title : "No Tasks Under This List"}}</p>
             </div>
             <!-- <div class="task complete">
@@ -39,6 +39,8 @@
             </div> -->
 
             <button class="circle-add-button button is-primary" (click)="goAddTask()">+Task</button>
+            <!-- Alternative -->
+            <!-- <button routerLink="./new-task" class="circle-add-button button is-primary" >+Task</button> -->
         </div>
 
     </div>

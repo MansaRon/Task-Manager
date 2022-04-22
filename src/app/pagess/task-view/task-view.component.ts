@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { List } from 'src/app/models/list.model';
+import { Task } from 'src/app/models/task.model';
 import { TasksServicesService } from 'src/app/tasks-services.service';
 
 @Component({
@@ -9,8 +11,8 @@ import { TasksServicesService } from 'src/app/tasks-services.service';
 })
 export class TaskViewComponent implements OnInit {
 
-  tasks: any = [];
-  lists: any = [];
+  tasks!: Task[];
+  lists!: List[];
   listId: string = '';
 
   constructor(private taskService: TasksServicesService, private router: Router, private params: ActivatedRoute) { }
@@ -19,7 +21,7 @@ export class TaskViewComponent implements OnInit {
 
   public getTasks() {
     this.taskService.getTasks().subscribe({
-      next: (lists: any[]) => { console.log(lists); this.lists = lists }, 
+      next: (lists: List[]) => { console.log(lists); this.lists = lists }, 
       error: (err) => { console.log(err); }, 
       complete:() => { console.log('Data being loaded...') }
     })
@@ -32,13 +34,12 @@ export class TaskViewComponent implements OnInit {
       //this.getTasksId(param['listId']);
       if (this.listId) {
         this.taskService.getList(param['listId']).subscribe({ 
-          next: (tasks: any[]) => { this.tasks = tasks; console.log(this.tasks) }, 
+          next: (tasks: Task[]) => { this.tasks = tasks; console.log(this.tasks) }, 
           error: (error) => {console.log(error) }, 
           complete:() => {console.log('Lists are being loaded...') }
         })
       }
     }); 
-    // (tasks: any[]) => { this.tasks = tasks; console.log(this.tasks) }
   }
 
   // public getTasksId(listId: string) {
@@ -70,5 +71,20 @@ export class TaskViewComponent implements OnInit {
   public goToNewList() { this.router.navigateByUrl('/new-list') };
 
   public goAddTask() { this.router.navigate(['lists', this.listId, 'new-task']) };
+
+  public onTaskClick(task: Task) { 
+    console.log(task);
+    let obj = { 
+      "_id": task._id,
+      "_listId": task._listId,
+      "completed": task.completed = true,
+      "title": task.title
+    };
+    this.taskService.editList(this.listId, task._id, obj).subscribe({
+      next: (taskResult: Task[]) => { console.log(taskResult) },
+      error: (error) => { console.log(error) },
+      complete:() => { console.log('Task has been edited...') }
+    })
+  }
 
 }

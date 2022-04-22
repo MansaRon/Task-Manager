@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Task } from './models/task.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,12 +26,12 @@ export class TasksServicesService {
       .set("Accept", 'application/json').set('Content-Type', 'application/json')})
   }
 
-  // editList(listId: string, taskObj: Object, taskObjId: string): Observable<any> {
-  //   return this.httpClient.put(this.url + "lists/" + listId + "/" + taskObjId, taskObj, {
-  //     headers: new HttpHeaders().set("Access-Control-Allow-Headers", "Origin, Content-Type, X-Auth-Token, content-type")
-  //     .set("Access-Control-Allow-Origin", "*").set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH")
-  //     .set("Accept", 'application/json').set('Content-Type', 'application/json')});
-  // }
+  editList(listId: string, taskId: string, taskObj: Task): Observable<any> {
+    return this.httpClient.put(this.url + "lists/" + listId + "/tasks/" + taskId, taskObj, {
+      headers: new HttpHeaders().set("Access-Control-Allow-Headers", "Origin, Content-Type, X-Auth-Token, content-type")
+      .set("Access-Control-Allow-Origin", "*").set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH")
+      .set("Accept", 'application/json').set('Content-Type', 'application/json')});
+  }
 
   // deleteList(listId: string, taskObjId: string): Observable<any> {
   //   return this.httpClient.delete(this.url + "lists/" + listId + '/' + taskObjId, {
